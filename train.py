@@ -5,7 +5,7 @@ import logging
 
 # print(__file__, type(__file__))  # train.py <class 'str'>
 
-FILE = Path(__file__).resolve()  
+FILE = Path(__file__).resolve()
 
 # print(Path(__file__)))  # train.py
 # print(type(Path(__file__))  # <class 'pathlib.PosixPath'>
@@ -40,4 +40,12 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # train.pyがあるフォルダ�
 
 LOGGER = logging.getLogger(__name__)
 # print(__name__)  # __main__
-print(LOGGER)  # <Logger __main__ (WARNING)>
+# print(LOGGER)  # <Logger __main__ (WARNING)>
+
+def parse_opt(known=False):
+
+    pass
+
+
+if __name__ == "__main__":
+    opt = parse_opt()
