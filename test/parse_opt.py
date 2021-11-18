@@ -38,7 +38,8 @@ parser.add_argument("--single-cls", action="store_true", help="train multi-class
 # すべてのクラスを1クラス("item")として学習させる
 parser.add_argument("--adam", action="store_true", help="use torch.optim.Adam() optimizer")
 parser.add_argument("--sync-bn", action="store_true", help="use SyncBatchNorm, only available in DDP mode")
-
+# 複数GPUでの学習時にミニバッチ全体の入力を正規化する
+parser.add_argument("--workers", type=int, default=8, help="maximum number of dataloader workers")
 
 
 opt = parser.parse_known_args()[0] if known else parser.parse_args()
