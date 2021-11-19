@@ -4,6 +4,8 @@ import os
 import logging
 import argparse
 
+from utils.general import print_args, set_logging
+
 # print(__file__, type(__file__))  # train.py <class 'str'>
 
 FILE = Path(__file__).resolve()
@@ -43,6 +45,7 @@ LOGGER = logging.getLogger(__name__)
 # print(__name__)  # __main__
 # print(LOGGER)  # <Logger __main__ (WARNING)>
 
+RANK = int(os.getenv("RANK", -1))
 
 def parse_opt(known=False):
     parser = argparse.ArgumentParser()
@@ -85,9 +88,13 @@ def parse_opt(known=False):
 
 def main(opt):
     # Checks
-    
+    set_logging(RANK)
+    if RANK in [-1, 0]:
+        # print(FILE.stem)  # train
+        print_args(FILE.stem, opt)
     pass
 
 
 if __name__ == "__main__":
     opt = parse_opt()
+    main(opt)

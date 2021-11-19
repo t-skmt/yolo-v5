@@ -10,4 +10,6 @@ def set_logging(rank=-1, verbose=True):
 
 def print_args(name, opt):
     """Print argparser arguments"""
-    print("".join())
+    print("" + ",".join(f"{k}={v}" for k, v in vars(opt).items()))
+
+
