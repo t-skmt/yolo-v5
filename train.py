@@ -83,5 +83,11 @@ def parse_opt(known=False):
     return opt
 
 
+def main(opt):
+    # Checks
+    
+    pass
+
+
 if __name__ == "__main__":
     opt = parse_opt()
