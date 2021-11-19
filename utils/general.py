@@ -46,6 +46,10 @@ def try_exept(func):
 
     return handler
 
+def is_docker():
+    # Is environment a Docker container?
+    return Path("/workspace").exists()  # or Path("/.dockerenv").exists()
+
 @try_exept  # エラーが起きても以降の処理を止めないようにする
 def check_git_status():
     # Recommend 'git pull' if code is out of date
