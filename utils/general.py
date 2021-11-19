@@ -34,3 +34,13 @@ def colorstr(*input):
               'bold': '\033[1m',
               'underline': '\033[4m'}
     return "".join(colors[x] for x in args) + f"{string}" + colors['end']
+
+def try_exept(func):
+    # try-except function. Usage: @try_except decorator
+    def handler(*args, **kwargs):
+        try:
+            func(*args, **kwargs)
+        except Exception as e:
+            print(e)
+
+    return handler
