@@ -4,7 +4,7 @@ import os
 import logging
 import argparse
 
-from utils.general import print_args, set_logging
+from utils.general import check_git_status, print_args, set_logging
 
 # print(__file__, type(__file__))  # train.py <class 'str'>
 
@@ -88,10 +88,11 @@ def parse_opt(known=False):
 
 def main(opt):
     # Checks
-    set_logging(RANK)
+    set_logging(RANK)  # ログレベルをINFOに設定
     if RANK in [-1, 0]:
         # print(FILE.stem)  # train
         print_args(FILE.stem, opt)
+        check_git_status()
     pass
 
 

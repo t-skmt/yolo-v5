@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 
 
 def set_logging(rank=-1, verbose=True):
@@ -44,3 +45,10 @@ def try_exept(func):
             print(e)
 
     return handler
+
+@try_exept  # エラーが起きても以降の処理を止めないようにする
+def check_git_status():
+    # Recommend 'git pull' if code is out of date
+    msg = ", for updates see https://github.com/ultralytics/yolov5"
+    print(colorstr("github: "), end="")
+    assert Path(".git").exists(), "skipping check (not a git repository)" + msg
