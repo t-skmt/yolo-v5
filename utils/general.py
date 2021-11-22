@@ -66,3 +66,4 @@ def check_git_status():
     print(colorstr("github: "), end="")
     assert Path(".git").exists(), "skipping check (not a git repository)" + msg
     assert not is_docker(), "skipping check (Docker image)" + msg
+    assert check_online(), "skipping check (offline)" + msg
