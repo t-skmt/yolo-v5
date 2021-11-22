@@ -56,3 +56,4 @@ def check_git_status():
     msg = ", for updates see https://github.com/ultralytics/yolov5"
     print(colorstr("github: "), end="")
     assert Path(".git").exists(), "skipping check (not a git repository)" + msg
+    assert not is_docker(), "skipping check (Docker image)" + msg
