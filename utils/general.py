@@ -47,8 +47,17 @@ def try_exept(func):
     return handler
 
 def is_docker():
-    # Is environment a Docker container?
+    """Is environment a Docker container?"""
     return Path("/workspace").exists()  # or Path("/.dockerenv").exists()
+
+def check_online():
+    """Check internet connectivity"""
+    import socket
+    try:
+        socket.create_connection(("1.1.1.1", 443), 5)  # check host accessibility
+        return True
+    except OSError:
+        return False
 
 @try_exept  # エラーが起きても以降の処理を止めないようにする
 def check_git_status():
