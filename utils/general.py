@@ -61,7 +61,7 @@ def check_online():
     except OSError:
         return False
 
-def emoji(str=""):
+def emojis(str=""):
     # Return platform-dependent emoji-safe version of string
     return str.encode().decode("ascii", "ignore") if platform.system() == "Windows" else str
 
