@@ -1,5 +1,6 @@
 import logging
 from pathlib import Path
+from subprocess import check_output
 
 
 def set_logging(rank=-1, verbose=True):
@@ -67,3 +68,9 @@ def check_git_status():
     assert Path(".git").exists(), "skipping check (not a git repository)" + msg
     assert not is_docker(), "skipping check (Docker image)" + msg
     assert check_online(), "skipping check (offline)" + msg
+
+    cmd = "git fetch && git config --get remote.origin.url"
+    url = check_output(cmd, shell=True, timeout=5).decode().strip().rstrip(".git")  # git fetch
+    branch = check_output("git rev-parse --abbrev-ref HEAD", shell=True).decode().strip()
+    n = int(check_output(f"git rev-list {branch}..origin/master --count", shell=True))  # commits behind
+    
