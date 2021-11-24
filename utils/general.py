@@ -73,4 +73,8 @@ def check_git_status():
     url = check_output(cmd, shell=True, timeout=5).decode().strip().rstrip(".git")  # git fetch
     branch = check_output("git rev-parse --abbrev-ref HEAD", shell=True).decode().strip()
     n = int(check_output(f"git rev-list {branch}..origin/master --count", shell=True))  # commits behind
-    
+    if n > 0:
+        s = f"⚠️ YOLOv5 is out of date by {n} commit{'s' * (n > 1)}"
+    else:
+        s = f"up to date with {url}✅"
+    print()
