@@ -1,4 +1,5 @@
 import logging
+import platform
 from pathlib import Path
 from subprocess import check_output
 
@@ -59,6 +60,10 @@ def check_online():
         return True
     except OSError:
         return False
+
+def emoji(str=""):
+    # Return platform-dependent emoji-safe version of string
+    return str.encode().decode("ascii", "ignore") if platform.system() == "Windows" else str
 
 @try_exept  # エラーが起きても以降の処理を止めないようにする
 def check_git_status():
