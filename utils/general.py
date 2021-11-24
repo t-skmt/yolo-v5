@@ -82,4 +82,4 @@ def check_git_status():
         s = f"⚠️ YOLOv5 is out of date by {n} commit{'s' * (n > 1)}"
     else:
         s = f"up to date with {url}✅"
-    print()
+    print(emojis(s))
