@@ -4,7 +4,7 @@ import os
 import logging
 import argparse
 
-from utils.general import check_git_status, print_args, set_logging
+from utils.general import check_git_status, print_args, set_logging, check_requirements
 
 # print(__file__, type(__file__))  # train.py <class 'str'>
 
@@ -93,6 +93,7 @@ def main(opt):
         # print(FILE.stem)  # train
         print_args(FILE.stem, opt)
         check_git_status()
+        check_requirements()
     pass
 
 
