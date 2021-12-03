@@ -4,6 +4,7 @@ from pathlib import Path
 from subprocess import check_output
 import contextlib
 import os
+import pkg_resources as pkg
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[1]
@@ -103,8 +104,22 @@ def check_git_status():
         s = f"up to date with {url}✅"
     print(emojis(s))
 
+def check_python(minimun="3.6.2"):
+    # check current python version vs. required python version
+    check_version(platform.python_version(), minimun, name="Python ", hard=True)
+
+def check_version(current="0.0.0", minimum="0.0.0", name="version", pinned=False, hard=False):
+    # check version vs. required version
+    # <class 'pkg_resources.extern.packaging.version.Version'>形式にparse_version()で変換する
+    # 同じバージョンでも表記方法が複数あるため、正常に判定するために必要(例: "1.2.0" と "1.2"など)
+    current, minimum = (pkg.parse_version(x) for x in (current, minimum))
+    result = (current == minimum) if pinned else (current >= minimum)  # bool
+    if hard:
+        assert result, f"{name}{minimum} required by YOLOv5, but {name}{current} is currently installed"
+    else:
+        return result
+
 def check_requirements():
     # check installed dependencies meet requirements (pass *.txt file or list of packages)
     prefix = colorstr("red", "bold", "requirements:")
-    
     pass
