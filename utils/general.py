@@ -2,6 +2,19 @@ import logging
 import platform
 from pathlib import Path
 from subprocess import check_output
+import contextlib
+import os
+
+class WorkingDirectory(contextlib.ContextDecorator):
+    def __init__(self, dir):
+        self.dir = dir
+        self.cwd = Path.cwd().resolve()
+
+    def __enter__(self):
+        os.chdir(self.dir)
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        os.chdir(self.cwd)
 
 
 def set_logging(rank=-1, verbose=True):
