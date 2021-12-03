@@ -5,7 +5,12 @@ from subprocess import check_output
 import contextlib
 import os
 
+FILE = Path(__file__).resolve()
+ROOT = FILE.parents[1]
+
+
 class WorkingDirectory(contextlib.ContextDecorator):
+    """一時的にカレントディレクトリを移動する"""
     def __init__(self, dir):
         self.dir = dir
         self.cwd = Path.cwd().resolve()
@@ -79,6 +84,7 @@ def emojis(str=""):
     return str.encode().decode("ascii", "ignore") if platform.system() == "Windows" else str
 
 @try_exept  # エラーが起きても以降の処理を止めないようにする
+@WorkingDirectory(ROOT)
 def check_git_status():
     # Recommend 'git pull' if code is out of date
     msg = ", for updates see https://github.com/ultralytics/yolov5"
