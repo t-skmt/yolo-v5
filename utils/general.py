@@ -102,3 +102,9 @@ def check_git_status():
     else:
         s = f"up to date with {url}✅"
     print(emojis(s))
+
+def check_requirements():
+    # check installed dependencies meet requirements (pass *.txt file or list of packages)
+    prefix = colorstr("red", "bold", "requirements:")
+    
+    pass
