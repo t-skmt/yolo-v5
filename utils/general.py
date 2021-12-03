@@ -57,14 +57,13 @@ def colorstr(*input):
               'underline': '\033[4m'}
     return "".join(colors[x] for x in args) + f"{string}" + colors['end']
 
-def try_exept(func):
+def try_except(func):
     # try-except function. Usage: @try_except decorator
     def handler(*args, **kwargs):
         try:
             func(*args, **kwargs)
         except Exception as e:
             print(e)
-
     return handler
 
 def is_docker():
@@ -84,7 +83,7 @@ def emojis(str=""):
     # Return platform-dependent emoji-safe version of string
     return str.encode().decode("ascii", "ignore") if platform.system() == "Windows" else str
 
-@try_exept  # エラーが起きても以降の処理を止めないようにする
+@try_except  # エラーが起きても以降の処理を止めないようにする
 @WorkingDirectory(ROOT)
 def check_git_status():
     # Recommend 'git pull' if code is out of date
