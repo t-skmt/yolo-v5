@@ -118,7 +118,15 @@ def check_version(current="0.0.0", minimum="0.0.0", name="version", pinned=False
     else:
         return result
 
-def check_requirements():
+@try_except
+def check_requirements(requirements=ROOT / "requirements.txt", exclude=(), install=True):
     # check installed dependencies meet requirements (pass *.txt file or list of packages)
     prefix = colorstr("red", "bold", "requirements:")
+    check_python()
+    if isinstance(requirements, (str, Path)):  # requirementsがstrかPathクラスなら
+        file = Path(requirements)
+        assert file.exists(), f"{prefix} {file.resolve()} not found, check failed."
+        with file.open() as f:
+            requirements = [f"{x.name}{x.specifier}" for x in pkg.parse_requirements(f) if x.name not in exclude]
+    print(requirements)
     pass
